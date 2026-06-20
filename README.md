@@ -10,11 +10,11 @@ O script faz uma requisição HTTP para uma URL informada e verifica se os princ
 
 Muitos sites, inclusive grandes empresas, não configuram corretamente os headers de segurança HTTP. Essa falha abre brechas para ataques como:
 
-**Clickjacking**: quando `X-Frame-Options` está ausente
-**XSS (Cross-Site Scripting)**: quando `Content-Security-Policy` está ausente
-**Interceptação de conexão (MITM)**: quando `Strict-Transport-Security` está ausente
-**Vazamento de URLs sensíveis**: quando `Referrer-Policy` está ausente
-**Execução de arquivos maliciosos**: quando `X-Content-Type-Options` está ausente
+- **Clickjacking**: quando `X-Frame-Options` está ausente
+- **XSS (Cross-Site Scripting)**: quando `Content-Security-Policy` está ausente
+- **Interceptação de conexão (MITM)**: quando `Strict-Transport-Security` está ausente
+- **Vazamento de URLs sensíveis**: quando `Referrer-Policy` está ausente
+- **Execução de arquivos maliciosos**: quando `X-Content-Type-Options` está ausente
 
 ## Headers verificados na requisição
 
@@ -49,4 +49,27 @@ pip install requests
 python scanner.py
 ```
 
-## Exemplo de saída
+## Exemplos de saídas
+
+# Linkedin
+Analisando: https://linkedin.com
+Status: 200
+
+   OK         Strict-Transport-Security
+   OK         X-Frame-Options
+   OK         X-Content-Type-Options
+   OK         Content-Security-Policy
+   AUSENTE    Referrer-Policy
+
+
+# Netflix
+Analisando: https://netflix.com
+Status: 200
+
+   OK         Strict-Transport-Security
+   OK         X-Frame-Options
+   OK         X-Content-Type-Options
+   AUSENTE    Content-Security-Policy
+   AUSENTE    Referrer-Policy
+
+  
