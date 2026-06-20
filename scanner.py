@@ -48,9 +48,9 @@ def verificar_headers(url):
     # tratamento de segurança para caso a URL não existir ou estiver fora do ar.
     try:
         # armazena o que o servidor retornar ao método GET requisitado.
-        # requests.get retorna um objeto do tipo Response.
         # timeout de 10 segundos para o código não ficar esperando para sempre.
-        resposta = requests.get(url, timeout=10)
+        resposta = requests.get(url, timeout=10) # requests.get retorna um objeto do tipo Response.
+
     except requests.exceptions.RequestException as e:
         # print na tela caso dê erro de requisição
         print(f"Erro ao conectar em {url}:   {e}")
@@ -83,6 +83,5 @@ def verificar_headers(url):
     print(f"\n{'='*60}")
 
 
-verificar_headers("google.com")  # sem protocolo
-verificar_headers("https://")  # sem dominio
-verificar_headers("https://google.com")  # válida
+url = input("Informe a URL que deseja analisar: ")
+verificar_headers(url)
