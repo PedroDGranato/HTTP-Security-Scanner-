@@ -1,3 +1,7 @@
+# git add .  - prepara todos os arquivos modificados para enviar
+# git commit -m "descrição do que você mudou"   - savepoint do projeto com uma descrição
+# git push   - envia para o github
+
 from urllib.parse import urlparse
 import requests
 
@@ -22,24 +26,6 @@ def calcular_nota(total_headers, presentes):
         return "D"
     else:
         return "F"
-    
-
-# verificação de url para garantir que seja uma url válida:
-# * garantir que utilize os protocolos http ou https.
-# * garantir que tenha um domínio
-
-def validar_url(url):
-    partes = urlparse(url)
-
-    if partes.scheme not in ["http", "https"]:
-        print("Não foi possível validar o protocolo da url inserida!")
-        return False
-
-    if not partes.netloc:  # se o domínio estiver vazio
-        print("Não foi possível validar o domínio da url inserida!")
-        return False
-
-    return True
 
 
 def verificar_headers(url):
@@ -81,6 +67,31 @@ def verificar_headers(url):
     print(
         f"\nNota de segurança: {nota}   ({presentes}/{len(headers_seguranca)})  ")
     print(f"\n{'='*60}")
+
+
+# verificação de url para garantir que seja uma url válida:
+# * garantir que utilize os protocolos http ou https.
+# * garantir que tenha um domínio
+
+def validar_url(url):
+    partes = urlparse(url)
+
+    if partes.scheme not in ["http", "https"]:
+        print("Não foi possível validar o protocolo da url inserida!")
+        return False
+
+    if not partes.netloc:  # se o domínio estiver vazio
+        print("Não foi possível validar o domínio da url inserida!")
+        return False
+
+    return True
+
+# partes = urlparse("https://google.com/search?q=python")
+
+# partes.scheme   #https
+# partes.netloc   #google.com
+# partes.path     #/search
+# partes.query    #q=python
 
 
 verificar_headers("google.com")  # sem protocolo
