@@ -61,8 +61,9 @@ Status: 200
    OK         X-Content-Type-Options
    OK         Content-Security-Policy
    AUSENTE    Referrer-Policy
+```
 
-
+```
 # Netflix
 Analisando: https://netflix.com
 Status: 200

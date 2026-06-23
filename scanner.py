@@ -95,6 +95,7 @@ def verificar_headers(url):
     resultado += f"\n{'='*60}"
     print(resultado)
 
+    #criar o arquivo de registro/log de cada analise
     with open(nome_arquivo, "w", encoding="utf-8") as nome:
         nome.write(resultado)
 
