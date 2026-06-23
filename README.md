@@ -35,7 +35,7 @@ Muitos sites, inclusive grandes empresas, não configuram corretamente os header
 
 **1. Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/http-security-scanner.git
+git clone [https://github.com/seu-usuario/http-security-scanner.git](https://github.com/PedroDGranato/HTTP-Security-Scanner-.git)](https://github.com/PedroDGranato/HTTP-Security-Scanner-)
 cd http-security-scanner
 ```
 
