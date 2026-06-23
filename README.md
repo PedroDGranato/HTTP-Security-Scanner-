@@ -39,9 +39,9 @@ git clone https://github.com/seu-usuario/http-security-scanner.git
 cd http-security-scanner
 ```
 
-**2. Instale a dependência**
+**2. Instale as dependências**
 ```bash
-pip install requests
+pip install -r requirements.txt
 ```
 
 **3. Rode o scanner**
@@ -51,7 +51,8 @@ python scanner.py
 
 ## Exemplos de saídas
 
-# Linkedin
+# Linkedin 
+
 ```
 Analisando: https://linkedin.com
 Status: 200
@@ -63,8 +64,9 @@ Status: 200
    AUSENTE    Referrer-Policy
 ```
 
-```
 # Netflix
+
+```
 Analisando: https://netflix.com
 Status: 200
 
