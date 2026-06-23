@@ -52,6 +52,7 @@ python scanner.py
 ## Exemplos de saídas
 
 # Linkedin
+```
 Analisando: https://linkedin.com
 Status: 200
 
@@ -71,5 +72,18 @@ Status: 200
    OK         X-Content-Type-Options
    AUSENTE    Content-Security-Policy
    AUSENTE    Referrer-Policy
-
+```
   
+## Relatórios gerados
+
+O scanner salva automaticamente um arquivo `.txt` para cada análise, com o nome seguindo este formato -> `dominio_data_hora.txt`.
+
+![arquivos gerados](Exemplos/arquivos_gerados.png)
+![conteudo do relatorio](Exemplos/relatorio_google.png)
+![conteudo do relatorio](Exemplos/relatorio_linkedin.png)
+
+
+## Autor
+
+Pedro Granato — graduado em ADS pelo IFSP, estudante de cibersegurança.  
+[GitHub](https://github.com/PedroDGranato)  

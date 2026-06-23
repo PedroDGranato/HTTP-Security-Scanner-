@@ -1,5 +1,7 @@
 from urllib.parse import urlparse
+from datetime import datetime
 import requests
+import os
 
 headers_seguranca = {
     "Strict-Transport-Security": "Risco: conexão pode ser interceptada antes de usar o protocolo HTTPS",
@@ -22,7 +24,7 @@ def calcular_nota(total_headers, presentes):
         return "D"
     else:
         return "F"
-    
+
 
 # verificação de url para garantir que seja uma url válida:
 # * garantir que utilize os protocolos http ou https.
@@ -49,7 +51,8 @@ def verificar_headers(url):
     try:
         # armazena o que o servidor retornar ao método GET requisitado.
         # timeout de 10 segundos para o código não ficar esperando para sempre.
-        resposta = requests.get(url, timeout=10) # requests.get retorna um objeto do tipo Response.
+        # requests.get retorna um objeto do tipo Response.
+        resposta = requests.get(url, timeout=10)
 
     except requests.exceptions.RequestException as e:
         # print na tela caso dê erro de requisição
@@ -60,28 +63,46 @@ def verificar_headers(url):
     headers = resposta.headers
     presentes = 0  # contador de headers que foram encontrados
 
-    print(f"\n{'='*60}")
-    print(f"\nAnalisando: {url}")
-    print(f"Status: {resposta.status_code}\n")
-    print(f"\n{'='*60}")
+    dominio = urlparse(url).netloc  # pega o dominio da url
+    # criando a variável de data com o horário atual
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    os.makedirs("relatorios", exist_ok=True)
+    # exemplo de saída:
+    nome_arquivo = os.path.join("relatorios", f"{dominio}_{timestamp}.txt")
+
+    resultado = ""
+
+    resultado += f"\n{'='*60}"
+    resultado += f"\nAnalisando: {url}"
+    resultado += f"\nStatus: {resposta.status_code}\n"
+    resultado += f"{'='*60}\n"
 
     # iteração em cima do dicionário headers_seguranca
     for header, risco in headers_seguranca.items():
         if headers.get(header):
-            print(f"   OK         {header}")
+            resultado += f"   OK         {header}\n"
             # se tiver um header OK (header presente), o contador aumenta em 1
             presentes += 1
         else:
-            print(f"   AUSENTE    {header}")
+            resultado += f"   AUSENTE    {header}\n"
             # risco encontrado logo abaixo do header ausente respectivo.
-            print(f"              {risco}\n")
+            resultado += f"              {risco}\n"
 
     nota = calcular_nota(len(headers_seguranca), presentes)
 
-    print(
-        f"\nNota de segurança: {nota}   ({presentes}/{len(headers_seguranca)})  ")
-    print(f"\n{'='*60}")
+    resultado += f"\nNota de segurança: {nota}   ({presentes}/{len(headers_seguranca)})  "
+    resultado += f"\n{'='*60}"
+    print(resultado)
+
+    with open(nome_arquivo, "w", encoding="utf-8") as nome:
+        nome.write(resultado)
 
 
-url = input("Informe a URL que deseja analisar: ")
-verificar_headers(url)
+while True:
+    url = input("Informe a URL que deseja analisar (OU 'sair' para finalizar): ")
+
+    if url.lower() == "sair":
+        break
+
+    verificar_headers(url)
