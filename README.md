@@ -89,7 +89,7 @@ O scanner gera um relatório HTML com cores para cada nota da url analisada:
 ![relatorio linkedin](Exemplos/relatorio_linkedin_html.png)
 
 **Google (nota F):**
-![relatorio google](Exemplos/relatorio_google_html.png)
+![relatorio google](Exemplos/Relatorio_google_html.png)
 
 ## Relatórios gerados
 O scanner salva automaticamente um arquivo `.html` para cada análise na pasta `relatorios/`, com o nome no formato `dominio_data_hora.html`.
