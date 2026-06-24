@@ -77,14 +77,24 @@ Status: 200
    AUSENTE    Referrer-Policy
 ```
   
+## Exemplos de saídas
+
+O scanner gera um relatório HTML com cores para cada nota da url analisada:
+
+- **Verde** — header presente e configurado
+- **Laranja** — header ausente
+- **Vermelho** — risco associado à ausência
+
+**Linkedin (nota B):**
+![relatorio linkedin](Exemplos/relatorio_linkedin_html.png)
+
+**Google (nota F):**
+![relatorio google](Exemplos/relatorio_google_html.png)
+
 ## Relatórios gerados
+O scanner salva automaticamente um arquivo `.html` para cada análise na pasta `relatorios/`, com o nome no formato `dominio_data_hora.html`.
 
-O scanner salva automaticamente um arquivo `.txt` para cada análise, com o nome seguindo este formato -> `dominio_data_hora.txt`.
-
-![arquivos gerados](Exemplos/arquivos_gerados.png)
-![conteudo do relatorio](Exemplos/relatorio_google.png)
-![conteudo do relatorio](Exemplos/relatorio_linkedin.png)
-
+![arquivos gerados](Exemplos/arquivos_gerados_html.png)
 
 ## Autor
 

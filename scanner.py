@@ -67,37 +67,64 @@ def verificar_headers(url):
     # criando a variável de data com o horário atual
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-    os.makedirs("relatorios", exist_ok=True)
-    # exemplo de saída:
-    nome_arquivo = os.path.join("relatorios", f"{dominio}_{timestamp}.txt")
+    resultado = f"""<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Relatório - {dominio}</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; padding: 20px; }}
+            h1 {{ color: #333; }}
+            .ok {{ color: green; }}
+            .ausente {{ color: orange; }}
+            .risco {{ color: red}}
+        </style>
+    </head>  
+    <body>
+        <h1>Relatório de Segurança</h1>
+        <p><strong>URL:</strong> {url}</p>
+        <p><strong>Status:</strong> {resposta.status_code}</p>
+        <hr>
+    """
 
-    resultado = ""
-
-    resultado += f"\n{'='*60}"
-    resultado += f"\nAnalisando: {url}"
-    resultado += f"\nStatus: {resposta.status_code}\n"
-    resultado += f"{'='*60}\n"
+    # resultado += f"\n{'='*60}"
+    # resultado += f"\nAnalisando: {url}"
+    # resultado += f"\nStatus: {resposta.status_code}\n"
+    # resultado += f"{'='*60}\n"
 
     # iteração em cima do dicionário headers_seguranca
     for header, risco in headers_seguranca.items():
         if headers.get(header):
-            resultado += f"   OK         {header}\n"
+            resultado += f'<p class="ok">[OK]   - {header}</p>\n'
             # se tiver um header OK (header presente), o contador aumenta em 1
             presentes += 1
         else:
-            resultado += f"   AUSENTE    {header}\n"
+            resultado += f'<p class="ausente">[AUSENTE] - {header}</p>\n'
             # risco encontrado logo abaixo do header ausente respectivo.
-            resultado += f"              {risco}\n"
+            resultado += f'<p class="risco">[RISCO] - {risco}</p>\n'
 
     nota = calcular_nota(len(headers_seguranca), presentes)
 
-    resultado += f"\nNota de segurança: {nota}   ({presentes}/{len(headers_seguranca)})  "
-    resultado += f"\n{'='*60}"
-    print(resultado)
+    #cores para cada tipo de nota - A,B  C,D   F
+    if nota in ["A", "B"]:
+        cor_nota = "green"
+    elif nota in ["C", "D"]:
+        cor_nota = "orange"
+    else:
+        cor_nota = "red"
 
-    #criar o arquivo de registro/log de cada analise
+    resultado += f'<hr>\n<h2 style="color:{cor_nota}"> Nota de segurança: {nota} ({presentes}/{len(headers_seguranca)})</h2>\n'
+    resultado += "</body>\n</html>"
+
+    os.makedirs("relatorios", exist_ok=True)
+    # exemplo de saída:
+    nome_arquivo = os.path.join("relatorios", f"{dominio}_{timestamp}.html")
+
+    # criar o arquivo de registro/log de cada analise
     with open(nome_arquivo, "w", encoding="utf-8") as nome:
         nome.write(resultado)
+
+    print(f"Relatório gerado: {nome_arquivo}")
 
 
 while True:
